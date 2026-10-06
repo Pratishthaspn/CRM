@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> - CRM</title>
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="/static/css/style.css">
+  
+  <!-- Chart.js for Reports & Analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar" id="appSidebar">
+      <!-- Brand Logo Header -->
+      <div class="sidebar-header">
+        <div class="logo-badge">CRM</div>
+        <div class="logo-text">
+          <h1>CRM</h1>
+          <p>Customer Management</p>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav">
+        <!-- Dashboard -->
+        <a href="/dashboard" class="nav-link <%= activePage === 'dashboard' ? 'active' : '' %>">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <rect x="3" y="3" width="7" height="9" rx="1" />
+            <rect x="14" y="3" width="7" height="5" rx="1" />
+            <rect x="14" y="12" width="7" height="9" rx="1" />
+            <rect x="3" y="16" width="7" height="5" rx="1" />
+          </svg>
+          <span>Dashboard</span>
+        </a>
+
+        <!-- Customers -->
+        <a href="/customers" class="nav-link <%= activePage === 'customers' ? 'active' : '' %>">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <span>Customers</span>
+        </a>
+
+        <!-- Interactions -->
+        <a href="/interactions" class="nav-link <%= activePage === 'interactions' ? 'active' : '' %>">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          <span>Interactions</span>
+        </a>
+
+        <!-- Follow-ups -->
+        <a href="/followups" class="nav-link <%= activePage === 'followups' ? 'active' : '' %>">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>Follow-ups</span>
+        </a>
+
+        <!-- Reports -->
+        <a href="/reports" class="nav-link <%= activePage === 'reports' ? 'active' : '' %>">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+          <span>Reports</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <a href="/settings" class="nav-link <%= activePage === 'settings' ? 'active' : '' %>">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span>Settings</span>
+        </a>
+
+        <div class="student-tag">
+          <span>CRM Application</span>
+          <span style="font-weight: 600; color: #4f46e5;">Node.js & Express</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <div class="main-wrapper">
+      
+      <!-- Top Navigation Bar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <!-- Mobile Menu Button -->
+          <button class="mobile-toggle-btn" id="mobileSidebarToggle" aria-label="Toggle Navigation">
+            <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+          
+          <div class="page-title-box">
+            <h2><%= pageTitle %></h2>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Download Complete Project as ZIP -->
+          <a href="/download-project-zip" class="btn btn-secondary btn-sm" title="Download Complete Project as ZIP">
+            <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+            <span>Download Project (.zip)</span>
+          </a>
+
+          <!-- Quick Add Customer Shortcut -->
+          <button type="button" class="btn btn-primary btn-sm" data-modal-open="addCustomerModal">
+            <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
+            </svg>
+            <span>+ Add Customer</span>
+          </button>
+
+          <!-- User / Admin Profile -->
+          <div class="user-badge">
+            <div class="avatar-circle">CRM</div>
+            <div class="user-info-text">
+              <div class="name"><%= locals.settings ? locals.settings.business_name : 'CRM' %></div>
+              <div class="role">Admin Account</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content Area -->
+      <main class="content-body">
+        
+        <!-- Flash Alert Notifications -->
+        <% if (locals.flashMessages && locals.flashMessages.length > 0) { %>
+          <div class="flash-container">
+            <% locals.flashMessages.forEach(msg => { %>
+              <div class="alert alert-<%= msg.category %>">
+                <span><%= msg.message %></span>
+                <button type="button" class="alert-close" aria-label="Close Alert">&times;</button>
+              </div>
+            <% }); %>
+          </div>
+        <% } %>
