@@ -113,7 +113,7 @@
     <div class="card-header"><div class="card-title">Customer Data Export</div></div>
     <div class="card-body">
       <p style="font-size: 0.88rem; color: #475569; margin-bottom: 14px;">Download all customer records as an Excel workbook (.xlsx).</p>
-      <a href="{{ url_for('crm.download_customers_excel') }}" class="btn btn-primary">Download Customers (.xlsx)</a>
+      <a href="{{ url_for('crm.download_customers_excel') }}" class="btn btn-primary">Download Customer List (.xlsx)</a>
     </div>
   </div>
 
@@ -140,56 +140,6 @@
           ↻ Reset Database to Sample Records
         </button>
       </form>
-    </div>
-  </div>
-
-  <!-- ====================================================================
-       PROJECT CODE EXPORT & DOWNLOAD (ALL 16 FILES)
-       ==================================================================== -->
-  <div class="card" style="border-color: #bfdbfe;">
-    <div class="card-header" style="background-color: #eff6ff;">
-      <div class="card-title" style="color: #1e40af;">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-        </svg>
-        <span>Download Complete Project (All 16 Files)</span>
-      </div>
-    </div>
-    <div class="card-body">
-      <p style="font-size: 0.88rem; color: #475569; margin-bottom: 14px; line-height: 1.5;">
-        Download the entire project source code packaged into a clean, ready-to-run ZIP archive containing all 16 essential files with proper folder structure.
-      </p>
-      
-      <div style="margin-bottom: 16px;">
-        <a href="{{ url_for('crm.download_project_zip') }}" class="btn btn-primary" style="padding: 10px 20px; font-weight: 600;">
-          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-          </svg>
-          <span>Download All 16 Files as ZIP (.zip)</span>
-        </a>
-      </div>
-
-      <details style="font-size: 0.84rem; color: #64748b; background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px;">
-        <summary style="cursor: pointer; font-weight: 600; color: #334155;">View Individual Download Links for All 16 Files</summary>
-        <ul style="margin-top: 10px; margin-left: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-          <li><a href="{{ url_for('crm.download_single_file', filepath='app.py') }}">app.py</a></li>
-          <li><a href="{{ url_for('crm.download_single_file', filepath='database.py') }}">database.py</a></li>
-          <li><a href="{{ url_for('crm.download_single_file', filepath='models.py') }}">models.py</a></li>
-          <li><a href="{{ url_for('crm.download_single_file', filepath='routes.py') }}">routes.py</a></li>
-          <li><a href="{{ url_for('crm.download_single_file', filepath='requirements.txt') }}">requirements.txt</a></li>
-          <li><a href="{{ url_for('crm.download_single_file', filepath='README.md') }}">README.md</a></li>
-          <li><a href="{{ url_for('crm.download_single_file', filepath='templates/base.html') }}">templates/base.html</a></li>
-          <li><a href="{{ url_for('crm.download_single_file', filepath='templates/dashboard.html') }}">templates/dashboard.html</a></li>
-          <li><a href="{{ url_for('crm.download_single_file', filepath='templates/customers.html') }}">templates/customers.html</a></li>
-          <li><a href="{{ url_for('crm.download_single_file', filepath='templates/customer_details.html') }}">templates/customer_details.html</a></li>
-          <li><a href="{{ url_for('crm.download_single_file', filepath='templates/followups.html') }}">templates/followups.html</a></li>
-          <li><a href="{{ url_for('crm.download_single_file', filepath='templates/interactions.html') }}">templates/interactions.html</a></li>
-          <li><a href="{{ url_for('crm.download_single_file', filepath='templates/reports.html') }}">templates/reports.html</a></li>
-          <li><a href="{{ url_for('crm.download_single_file', filepath='templates/settings.html') }}">templates/settings.html</a></li>
-          <li><a href="{{ url_for('crm.download_single_file', filepath='static/css/style.css') }}">static/css/style.css</a></li>
-          <li><a href="{{ url_for('crm.download_single_file', filepath='static/js/script.js') }}">static/js/script.js</a></li>
-        </ul>
-      </details>
     </div>
   </div>
 

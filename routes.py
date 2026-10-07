@@ -9,7 +9,6 @@ This module defines the Flask Blueprint for all application URL routes:
 - Follow-up management routes (List, Add, Edit, Toggle, Delete)
 - Analytics & Reports route
 - Settings & Sample Data Reset routes
-- Project ZIP download routes for easy submission & evaluation
 
 Demonstrates standard HTTP verbs (GET, POST), form handling, input validation,
 flash messages, and Jinja2 template rendering for college viva examinations.
@@ -17,12 +16,12 @@ flash messages, and Jinja2 template rendering for college viva examinations.
 """
 
 import io
-import os
 import re
 import sqlite3
-import zipfile
+from datetime import date
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, send_file, abort, session
 from openpyxl import Workbook
+from openpyxl.styles import Font
 from werkzeug.security import check_password_hash, generate_password_hash
 import models
 from database import reset_database
@@ -507,12 +506,19 @@ def settings_page():
 
 
 @crm_bp.route("/download-customers.xlsx")
+@crm_bp.route("/settings/export-customers")
 def download_customers_excel():
     workbook = Workbook()
     sheet = workbook.active
     sheet.title = "Customers"
-    columns = ["ID", "Name", "Email", "Phone", "Company", "Address", "Status", "Notes", "Created", "Last Contact"]
+    columns = ["ID", "Name", "Email", "Phone", "Company", "Address", "Status", "Notes", "Created At", "Last Contact"]
     sheet.append(columns)
+    for cell in sheet[1]:
+        cell.font = Font(bold=True)
+    sheet.freeze_panes = "A2"
+    for column, width in zip("ABCDEFGHIJ", (10, 24, 32, 18, 24, 30, 14, 40, 16, 16)):
+        sheet.column_dimensions[column].width = width
+
     for customer in models.get_customers():
         values = [customer[key] for key in (
             "id", "name", "email", "phone", "company", "address", "status", "notes", "created_at", "last_contact"
@@ -529,7 +535,7 @@ def download_customers_excel():
         output,
         mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         as_attachment=True,
-        download_name="crm_customers.xlsx"
+        download_name=f"customers_{date.today().isoformat()}.xlsx"
     )
 
 
@@ -544,74 +550,4 @@ def reset_db_action():
     return redirect(url_for("crm.dashboard"))
 
 
-# ---------------------------------------------------------------------------
-# DOWNLOADABLE PROJECT EXPORT (All 16 Files as ZIP or Individual Files)
-# ---------------------------------------------------------------------------
-# The exact 16 project files specified for this college mini project
-PROJECT_16_FILES = [
-    "app.py",
-    "database.py",
-    "models.py",
-    "routes.py",
-    "requirements.txt",
-    "README.md",
-    os.path.join("templates", "base.html"),
-    os.path.join("templates", "dashboard.html"),
-    os.path.join("templates", "customers.html"),
-    os.path.join("templates", "customer_details.html"),
-    os.path.join("templates", "followups.html"),
-    os.path.join("templates", "interactions.html"),
-    os.path.join("templates", "reports.html"),
-    os.path.join("templates", "settings.html"),
-    os.path.join("static", "css", "style.css"),
-    os.path.join("static", "js", "script.js"),
-]
-
-
-@crm_bp.route("/download-project-zip")
-@crm_bp.route("/download-zip")
-def download_project_zip():
-    """
-    Dynamically packages all 16 clean project files into a single downloadable
-    'CRM_Python_Project.zip' file for college submission and viva evaluation.
-    """
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    zip_buffer = io.BytesIO()
-
-    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zf:
-        for rel_path in PROJECT_16_FILES:
-            full_path = os.path.join(base_dir, rel_path)
-            if os.path.exists(full_path):
-                # Standardize forward slashes inside ZIP
-                arcname = "crm_project/" + rel_path.replace("\\", "/")
-                zf.write(full_path, arcname=arcname)
-
-    zip_buffer.seek(0)
-    return send_file(
-        zip_buffer,
-        mimetype="application/zip",
-        as_attachment=True,
-        download_name="CRM_Python_Project.zip"
-    )
-
-
-@crm_bp.route("/download-file/<path:filepath>")
-def download_single_file(filepath):
-    """
-    Allows downloading any of the 16 project source files individually.
-    """
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    # Normalize path separators
-    normalized_path = filepath.replace("/", os.sep).replace("\\", os.sep)
-
-    # Security check: ensure requested file is in allowlist of 16 project files
-    if normalized_path not in PROJECT_16_FILES:
-        abort(404)
-
-    full_path = os.path.join(base_dir, normalized_path)
-    if not os.path.exists(full_path):
-        abort(404)
-
-    filename = os.path.basename(full_path)
-    return send_file(full_path, as_attachment=True, download_name=filename)
 

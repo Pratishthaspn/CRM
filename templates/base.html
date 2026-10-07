@@ -122,16 +122,6 @@
         </div>
 
         <div class="topbar-right">
-          {% if current_user.role == 'admin' %}
-          <!-- Download Complete Project as ZIP -->
-          <a href="{{ url_for('crm.download_project_zip') }}" class="btn btn-secondary btn-sm" title="Download Complete 16 Files as ZIP">
-            <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-            </svg>
-            <span>Download Project (.zip)</span>
-          </a>
-          {% endif %}
-
           <!-- Quick Add Customer Shortcut -->
           {% if current_user.role != 'customer' %}
           <button type="button" class="btn btn-primary btn-sm" data-modal-open="addCustomerModal">

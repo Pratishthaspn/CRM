@@ -228,7 +228,7 @@ Open your browser and navigate to:
 2. Sign in at `/login`. The administrator creates staff, customer, or additional admin accounts from **Settings → User Accounts**.
 3. The administrator creates customer accounts using the email already stored on that customer's record and provides a temporary password to the customer through a trusted channel.
 4. New accounts created by an admin must change their temporary password at first sign-in. Signed-in users can change their password from the top bar; an admin can reset another account's password from Settings.
-5. Use **Settings → Customer Data Export → Download Customers (.xlsx)** to export customer records. Sign out with **Log out**.
+5. Use **Settings → Customer Data Export → Download Customer List (.xlsx)** to export customer records. Sign out with **Log out**.
 
 Passwords are stored as one-way hashes. The app requires signed-in sessions, role-based access, and CSRF tokens for POST requests. Recovery is admin-assisted; email reset links require a configured mail delivery service.
 

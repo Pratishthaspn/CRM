@@ -12,7 +12,6 @@ Features:
 - Follow-up Reminders & One-Click Status Toggling
 - Interactive Analytical Visualizations & Key Business KPIs
 - Clean modular structure with Flask and built-in SQLite3
-- Complete 16-file downloadable ZIP package export
 
 How to Run:
 1. python app.py
@@ -81,8 +80,7 @@ def create_app():
             return redirect(url_for("crm.change_password"))
 
         admin_only = {
-            "crm.settings_page", "crm.reset_db_action", "crm.download_project_zip",
-            "crm.download_single_file", "crm.download_customers_excel",
+            "crm.settings_page", "crm.reset_db_action", "crm.download_customers_excel",
             "crm.create_user", "crm.reset_user_password"
         }
         if endpoint in admin_only and user["role"] != "admin":
