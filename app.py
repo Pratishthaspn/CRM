@@ -30,10 +30,8 @@ def create_app():
     """Application factory for CRM."""
     app = Flask(__name__)
     
-    # Secret key used for session signing and flash messages
+    # Set SECRET_KEY in production to keep sessions valid across instances.
     secret_key = os.environ.get("SECRET_KEY")
-    if not secret_key and os.environ.get("VERCEL") == "1":
-        raise RuntimeError("Set a strong SECRET_KEY environment variable before deployment.")
     app.secret_key = secret_key or secrets.token_hex(32)
     app.config.update(
         SESSION_COOKIE_HTTPONLY=True,
