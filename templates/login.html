@@ -36,7 +36,11 @@
             {% if setup_required %}Create admin account{% else %}Sign in{% endif %}
           </button>
         </form>
-        {% if not setup_required %}
+        {% if setup_required %}
+          <p style="font-size: 0.82rem; color: #64748b; text-align: center; margin-top: 16px;">
+            Already have an account? <a href="{{ url_for('crm.login') }}">Sign in</a>
+          </p>
+        {% else %}
           <p style="font-size: 0.82rem; color: #64748b;">Need a password reset? Contact your CRM administrator.</p>
         {% endif %}
       </div>
